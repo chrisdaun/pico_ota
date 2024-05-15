@@ -13,7 +13,7 @@ relay.value(1)
 
 # -------- OTA update code -------- #
 from ota import OTAUpdater
-from WIFI_CONFIG import SSID, PASSWORD, IP, ROUTER_IP
+from WIFI_CONFIG import SSID, PASSWORD, STATIC_IP, ROUTER_IP
 firmware_url = "https://raw.githubusercontent.com/chrisdaun/pico_ota/"
 ota_updater = OTAUpdater(SSID, PASSWORD, firmware_url, "main.py")
 ota_updater.download_and_install_update_if_available()
@@ -22,7 +22,7 @@ ota_updater.download_and_install_update_if_available()
 # WiFi Settings
 WIFI_SSID = SSID
 WIFI_PASSWORD = PASSWORD
-WIFI_STATIC_IP = IP
+WIFI_STATIC_IP = STATIC_IP
 WIFI_ROUTER_IP = ROUTER_IP
     
 # Set up pins
