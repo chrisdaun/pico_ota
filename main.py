@@ -1,11 +1,3 @@
-# -------- OTA update code -------- #
-from ota import OTAUpdater
-from WIFI_CONFIG import SSID, PASSWORD
-firmware_url = "https://raw.githubusercontent.com/chrisdaun/pico_ota/"
-ota_updater = OTAUpdater(SSID, PASSWORD, firmware_url, "main.py")
-ota_updater.download_and_install_update_if_available()
-# -------- OTA update code -------- #
-
 # Start of main code
 import network
 import socket
@@ -13,18 +5,32 @@ import time
 from uselect import select
 from machine import Pin
 
-#WiFi Settings. Change these before uploading to the Pi Pico
+# Setting up the relay so its state is set correctly before OTA
+RELAY_PIN=28
+relay = Pin(RELAY_PIN, Pin.OUT)
+# The hardware relay module used is active low, setting it high (off)
+relay.value(1)
+
+# -------- OTA update code -------- #
+from ota import OTAUpdater
+from WIFI_CONFIG import SSID, PASSWORD, IP, ROUTER_IP
+firmware_url = "https://raw.githubusercontent.com/chrisdaun/pico_ota/"
+ota_updater = OTAUpdater(SSID, PASSWORD, firmware_url, "main.py")
+ota_updater.download_and_install_update_if_available()
+# -------- OTA update code -------- #
+
+# WiFi Settings
 WIFI_SSID = SSID
 WIFI_PASSWORD = PASSWORD
-WIFI_STATIC_IP = '192.168.86.223'
-WIFI_ROUTER_IP = '192.168.86.1'
+WIFI_STATIC_IP = IP
+WIFI_ROUTER_IP = ROUTER_IP
     
-#Set up pins
+# Set up pins
 CLOSED_SENSOR_PIN=20
 RELAY_PIN=28
 DOOR_STATUS_LED_PIN=22
 
-#Pulse length in ms
+# Pulse length for relay (in ms)
 PULSE_LENGTH=500
 
 #Homekit target and current states
