@@ -1,15 +1,17 @@
+from ota import OTAUpdater
+from WIFI_CONFIG import SSID, PASSWORD
+firmware_url = "https://github.com/chrisdaun/pico_ota/main"
+ota_updater = OTAUpdater(SSID, PASSWORD, firmware_url, "main.py")
+ota_updater.download_and_install_update_if_available()
+
+
+
+
 import network
 import socket
 import time
 from uselect import select
 from machine import Pin
-
-from ota import OTAUpdater
-from WIFI_CONFIG import SSID, PASSWORD
-
-firmware_url = "https://raw.githubusercontent.com/<username>/<repo_name>/<branch_name>"
-
-
 
 #WiFi Settings. Change these before uploading to the Pi Pico
 WIFI_SSID = 'McMouse'
